@@ -165,6 +165,7 @@ public:
 	{
 		PutContainer(obj, container);
 		obj->Layer = layer;
+		container->FrameChanged = true;
 	}
 
 	/*!

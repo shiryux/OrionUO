@@ -39,6 +39,14 @@ CGameItem::~CGameItem()
 
 		m_Dragged = false;
 	}
+
+	if (m_Layer)
+	{
+		CGameObject *parent = g_World->FindWorldObject(m_Container);
+
+		if (parent != NULL)
+			parent->FrameChanged = true;
+	}
 }
 //----------------------------------------------------------------------------------
 void CGameItem::ClearMultiItems()

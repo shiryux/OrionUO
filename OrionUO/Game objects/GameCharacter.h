@@ -42,6 +42,8 @@ class CGameCharacter: public CGameObject
 	SETGET(string, PaperdollText, "");
 	SETGET(uchar, HitsPercent, 0);
 
+	SETGET(WISP_GEOMETRY::CPoint2Di, FrameBufferOffset, WISP_GEOMETRY::CPoint2Di());
+
 protected:
 	/*!
 	Скорректировать отношение индексов групп анимаций
@@ -55,6 +57,8 @@ protected:
 public:
 	CGameCharacter(const uint &serial = 0);
 	virtual ~CGameCharacter();
+
+	CGLFrameBuffer m_FrameBufer;
 
 	//Ссылка на контейнер для текста урона
 	CTextContainer m_DamageTextControl{ CTextContainer(10) };
@@ -84,13 +88,6 @@ public:
 	@return 
 	*/
 	void OnGraphicChange(int direction = 0);
-
-	/*!
-	Установка группы анимации
-	@param [__in] val Новое значение группы анимации
-	@return 
-	*/
-	void ResetAnimationGroup(const uchar &val);
 
 	/*!
 	Установка случайной анимации (при длительном простое)

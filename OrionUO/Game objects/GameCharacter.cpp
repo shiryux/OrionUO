@@ -372,27 +372,10 @@ void CGameCharacter::SetAnimation(const uchar &id, const uchar &interval, const 
 	m_AnimationRepeat = repeat;
 	m_AnimationDirection = frameDirection;
 	m_AnimationFromServer = false;
+	m_FrameChanged = true;
 
 	m_LastAnimationChangeTime = g_Ticks;
 	m_TimeToRandomFidget = g_Ticks + RANDOM_FIDGET_ANIMATION_DELAY;
-}
-//----------------------------------------------------------------------------------
-/*!
-Установка группы анимации
-@param [__in] val Новое значение группы анимации
-@return
-*/
-void CGameCharacter::ResetAnimationGroup(const uchar &val)
-{
-	WISPFUN_DEBUG("c15_f11");
-	m_AnimationFrameCount = 0;
-	m_AnimationInterval = 0;
-	m_AnimationRepeat = false;
-	m_AnimationRepeatMode = 0;
-	m_AnimationDirection = false;
-	m_AnimationFromServer = false;
-
-	m_AnimationGroup = val;
 }
 //----------------------------------------------------------------------------------
 /*!

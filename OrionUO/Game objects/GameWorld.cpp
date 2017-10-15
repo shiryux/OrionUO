@@ -219,6 +219,9 @@ void CGameWorld::ProcessAnimation()
 							}
 						}
 						
+						if (gc->AnimIndex != frameIndex)
+							gc->FrameChanged = true;
+
 						gc->AnimIndex = frameIndex;
 					}
 				}
@@ -261,7 +264,10 @@ void CGameWorld::ProcessAnimation()
 						{
 							frameIndex = fc - 1;
 						}
-						
+
+						if (obj->AnimIndex != frameIndex)
+							obj->FrameChanged = true;
+
 						obj->AnimIndex = frameIndex;
 					}
 				}

@@ -1366,8 +1366,11 @@ PACKET_HANDLER(UpdateObject)
 	if (obj->NPC)
 	{
 		((CGameCharacter*)obj)->Notoriety = notoriety;
+		obj->FrameChanged = true;
 		g_GumpManager.UpdateContent(serial, 0, GT_PAPERDOLL);
 	}
+	else if (obj->IsCorpse())
+		obj->FrameChanged = true;
 
 	if (*m_Start != 0x78)
 		Move(6);
