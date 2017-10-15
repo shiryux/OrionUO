@@ -42,7 +42,8 @@ class CGameCharacter: public CGameObject
 	SETGET(string, PaperdollText, "");
 	SETGET(uchar, HitsPercent, 0);
 
-	SETGET(WISP_GEOMETRY::CPoint2Di, FrameBufferOffset, WISP_GEOMETRY::CPoint2Di());
+	SETGET(WISP_GEOMETRY::CRect, FrameRect, WISP_GEOMETRY::CRect());
+	SETGET(ushort, PrevDrawColor, 0);
 
 protected:
 	/*!
