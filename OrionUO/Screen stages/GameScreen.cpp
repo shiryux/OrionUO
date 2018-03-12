@@ -1297,10 +1297,10 @@ void CGameScreen::DrawGameWindowLight()
 		if (/*g_LightBuffer.Ready() &&*/ g_LightBuffer.Use())
 		{
 			float newLightColor = ((32 - g_LightLevel + g_PersonalLightLevel) / 32.0f);
-
+			/*
 			if (!g_ConfigManager.DarkNights)
 				newLightColor += 0.2f;
-
+			*/
 			glClearColor(newLightColor, newLightColor, newLightColor, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

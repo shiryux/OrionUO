@@ -54,6 +54,8 @@ bool CGumpConsoleType::ConsoleIsEmpty()
 		case GCTT_C:
 		case GCTT_BROADCAST:
 		case GCTT_PARTY:
+		case GCTT_GUILD:
+		case GCTT_ALLIANCE:
 		{	   
 			result = (g_ConsolePrefix[m_SelectedType] == g_GameConsole.Data());
 			break;
@@ -78,6 +80,8 @@ void CGumpConsoleType::DeleteConsolePrefix()
 		case GCTT_C:
 		case GCTT_BROADCAST:
 		case GCTT_PARTY:
+		case GCTT_GUILD:
+		case GCTT_ALLIANCE:
 		{
 			wstring str(g_GameConsole.Data());
 
@@ -105,6 +109,8 @@ void CGumpConsoleType::SetConsolePrefix()
 		case GCTT_C:
 		case GCTT_BROADCAST:
 		case GCTT_PARTY:
+		case GCTT_GUILD:
+		case GCTT_ALLIANCE:
 		{
 			wstring str(g_GameConsole.Data());
 			str = g_ConsolePrefix[m_SelectedType] + str;
@@ -159,6 +165,16 @@ void CGumpConsoleType::InitToolTip()
 			g_ToolTip.Set(L"Party entry mode\nprefix is '/ '");
 			break;
 		}
+		case ID_GCT_GUILD:
+		{
+			g_ToolTip.Set(L"Guild entry mode\nprefix is '\\ '");
+			break;
+		}
+		case ID_GCT_ALLIANCE:
+		{
+			g_ToolTip.Set(L"Alliance entry mode\nprefix is '| '");
+			break;
+		}
 		case ID_GCT_MINIMIZE:
 		{
 			g_ToolTip.Set(L"Show/hide configuration");
@@ -199,12 +215,14 @@ void CGumpConsoleType::UpdateContent()
 			" Emote ",
 			" Command ",
 			" Broadcast ",
-			" Party "
+			" Party ",
+			" Guild ",
+			" Alliance "
 		};
 
 		int text0Height = 0;
 
-		IFOR(i, 0, 7)
+		IFOR(i, 0, 9)
 		{
 			CGUITextEntry *entry = new CGUITextEntry((int)i + 1, 0, 0, 0, offsetX, offsetY, 0, false, 3);
 			entry->CheckOnSerial = true;

@@ -354,12 +354,9 @@ void CGumpScreenCreateCharacter::UpdateContent()
 
 		radio = (CGUIRadio*)Add(new CGUIRadio(ID_CCS_HUMAN_RACE_BUTTON, 0x0768, 0x0767, 0x0767, 180, 435));
 		radio->Checked = (g_CreateCharacterManager.Race == RT_HUMAN);
-		radio = (CGUIRadio*)Add(new CGUIRadio(ID_CCS_ELF_RACE_BUTTON, 0x0768, 0x0767, 0x0767, 180, 455));
-		radio->Checked = (g_CreateCharacterManager.Race == RT_ELF);
-
+		
 		Add(new CGUIButton(ID_CCS_HUMAN_RACE_BUTTON, 0x0702, 0x0703, 0x0704, 200, 435));
-		Add(new CGUIButton(ID_CCS_ELF_RACE_BUTTON, 0x0705, 0x0706, 0x0707, 200, 455));
-
+		
 		if (g_PacketManager.ClientVersion >= CV_60144)
 		{
 			radio = (CGUIRadio*)Add(new CGUIRadio(ID_CCS_GARGOYLE_RACE_BUTTON, 0x0768, 0x0767, 0x0767, 60, 435));

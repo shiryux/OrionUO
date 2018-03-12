@@ -991,7 +991,7 @@ void CGameWorld::UpdateGameObject(const uint &serial, ushort graphic, const ucha
 
 	if (created && g_ConfigManager.ShowIncomingNames && !obj->Clicked && !obj->Name.length())
 	{
-		if (obj->NPC || obj->IsCorpse())
+		if (obj->NPC)
 			g_Orion.Click(obj->Serial);
 	}
 

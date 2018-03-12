@@ -24,8 +24,10 @@ protected:
 	static const int ID_GCT_COMMAND = 5;
 	static const int ID_GCT_BROADCAST = 6;
 	static const int ID_GCT_PARTY = 7;
-	static const int ID_GCT_MINIMIZE = 8;
-	static const int ID_GCT_SHOW_FULL_TEXT = 9;
+	static const int ID_GCT_GUILD = 8;
+	static const int ID_GCT_ALLIANCE = 9;
+	static const int ID_GCT_MINIMIZE = 10;
+	static const int ID_GCT_SHOW_FULL_TEXT = 11;
 
 	virtual void CalculateGumpState();
 

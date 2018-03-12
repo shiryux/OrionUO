@@ -69,18 +69,18 @@ void CGumpStatusbar::InitToolTip()
 			L"Hit Points", //ID_GSB_TEXT_HITS
 			L"Stamina", //ID_GSB_TEXT_STAM
 			L"Mana", //ID_GSB_TEXT_MANA
-			L"Maximum stats", //ID_GSB_TEXT_MAX_STATS
+			L"Stat Cap", //ID_GSB_TEXT_MAX_STATS
 			L"Luck", //ID_GSB_TEXT_LUCK
 			L"Weight", //ID_GSB_TEXT_WEIGHT
 			L"Damage", //ID_GSB_TEXT_DAMAGE
-			L"Gold", //ID_GSB_TEXT_GOLD
+			L"Oro", //ID_GSB_TEXT_GOLD
 			L"Followers", //ID_GSB_TEXT_FOLLOWERS
 			L"Physical Resistance", //ID_GSB_TEXT_RESISTANCE_PHYSICAL
 			L"Fire Resistance", //ID_GSB_TEXT_RESISTANCE_FIRE
 			L"Cold Resistance", //ID_GSB_TEXT_RESISTANCE_COLD
 			L"Poison Resistance", //ID_GSB_TEXT_RESISTANCE_POISON
 			L"Energy Resistance", //ID_GSB_TEXT_RESISTANCE_ENERGY
-			L"Tithing Points", //ID_GSB_TEXT_TITHING_POINTS
+			L"Stat Cap", //ID_GSB_TEXT_TITHING_POINTS
 			L"Hit Chance Increase", //ID_GSB_TEXT_HIT_CHANCE
 			L"Defense Chance Increase", //ID_GSB_TEXT_DEFENCE_CHANCE
 			L"Lower Mana Cost", //ID_GSB_TEXT_LOWER_MANA
