@@ -152,10 +152,10 @@ void CGumpSecureTrading::UpdateContent()
 			dataObject->PartialHue = IsPartialHue(g_Orion.GetStaticFlags(graphic));
 
 			if (dataObject->Y >= 150)
-				dataObject->Y = 120;
+				dataObject->Y = 100;
 
 			if (dataObject->X >= 155)
-				dataObject->X = 125;
+				dataObject->X = 105;
 		}
 	}
 
@@ -172,10 +172,10 @@ void CGumpSecureTrading::UpdateContent()
 			dataObject->PartialHue = IsPartialHue(g_Orion.GetStaticFlags(graphic));
 
 			if (dataObject->Y >= 150)
-				dataObject->Y = 120;
+				dataObject->Y = 100;
 
 			if (dataObject->X >= 302)
-				dataObject->X = 272;
+				dataObject->X = 252;
 		}
 	}
 }
