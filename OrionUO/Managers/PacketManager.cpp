@@ -2364,7 +2364,7 @@ PACKET_HANDLER(ExtendedCommand)
 				{
 					item->Name = ToString(str);
 				}
-				g_Orion.CreateUnicodeTextMessage(TT_OBJECT, serial, 0x03, 0x3B2, str);
+				g_Orion.CreateUnicodeTextMessage(TT_SYSTEM, serial, 0x03, 0x3B2, str);
 			}
 			
 			str = L"";
@@ -2419,7 +2419,7 @@ PACKET_HANDLER(ExtendedCommand)
 				str += L"]";
 
 			if (str.length())
-				g_Orion.CreateUnicodeTextMessage(TT_OBJECT, serial, 0x03, 0x3B2, str);
+				g_Orion.CreateUnicodeTextMessage(TT_SYSTEM, serial, 0x03, 0x3B2, str);
 			//g_Orion.CreateTextMessage(TT_OBJECT, serial, 0x03, 0x3B2, str);
 			CPacketMegaClilocRequestOld(serial).Send();
 			break;
@@ -3550,15 +3550,18 @@ PACKET_HANDLER(DisplayClilocString)
 
 		if (obj != NULL)
 		{
-			if (!obj->Name.length())
+			if (!name.length())
 			{
+				obj->YouSeeJournalPrefix = true;
+			}
+			else
+			{
+				obj->YouSeeJournalPrefix = false;
 				obj->Name = name;
 
 				if (obj->NPC)
 					g_GumpManager.UpdateContent(serial, 0, GT_STATUSBAR);
 			}
-			else //names in journal should always be seen as -> You see: NAME, unless speaking, emoting or else
-				obj->YouSeeJournalPrefix = true;
 		}
 
 		g_Orion.CreateUnicodeTextMessage(TT_OBJECT, serial, (uchar)font, color, message);
@@ -4219,7 +4222,12 @@ PACKET_HANDLER(OpenGump)
 
 	STRING_LIST commandList = parser.GetTokens(commands.c_str());
 	CBaseGUI *lastGumpObject = NULL;
-
+	
+	bool EntryChanged = false;
+	int FirstPage = 0;
+	int CurrentPage = 0;
+	CEntryText *ChangeEntry;
+	
 	for (const string &str : commandList)
 	{
 		STRING_LIST list = cmdParser.GetTokens(str.c_str());
@@ -4252,6 +4260,9 @@ PACKET_HANDLER(OpenGump)
 
 				int page = ToInt(list[1]);
 				go = new CGUIPage(page);
+				if (FirstPage == 0)
+					FirstPage = page;
+				CurrentPage = page;
 			}
 		}
 		else if (cmd == "group")
@@ -4440,6 +4451,14 @@ PACKET_HANDLER(OpenGump)
 				go = new CGUIGenericTextEntry(index + 1, textIndex, color, x, y);
 				((CGUIGenericTextEntry*)go)->CheckOnSerial = true;
 				((CGUITextEntry*)go)->m_Entry.Width = width;
+				if (!EntryChanged)
+				{
+					if (CurrentPage == 0 || CurrentPage == FirstPage)
+					{
+						ChangeEntry = &((CGUITextEntry*)go)->m_Entry;
+						EntryChanged = true;
+					}
+				}
 			}
 		}
 		else if (cmd == "textentrylimited")
@@ -4463,6 +4482,14 @@ PACKET_HANDLER(OpenGump)
 				go = new CGUIGenericTextEntry(index + 1, textIndex, color, x, y, width, length);
 				((CGUIGenericTextEntry*)go)->CheckOnSerial = true;
 				((CGUITextEntry*)go)->m_Entry.Width = width;
+				if (!EntryChanged)
+				{
+					if (CurrentPage == 0 || CurrentPage == FirstPage)
+					{
+						ChangeEntry = &((CGUITextEntry*)go)->m_Entry;
+						EntryChanged = true;
+					}
+				}
 			}
 		}
 		else if (cmd == "tilepic" || cmd == "tilepichue")
@@ -4647,7 +4674,10 @@ PACKET_HANDLER(OpenGump)
 		else
 			gump->AddText((int)i, L"");
 	}
-
+	
+	if (EntryChanged)
+		g_EntryPointer = ChangeEntry;
+	
 	g_GumpManager.AddGump(gump);
 }
 //----------------------------------------------------------------------------------

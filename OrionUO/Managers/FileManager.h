@@ -67,7 +67,7 @@ public:
 	WISP_FILE::CMappedFile m_StaticIdx[6];
 	WISP_FILE::CMappedFile m_TextureIdx;
 
-	WISP_FILE::CMappedFile m_AnimMul[6];
+	std::fstream m_AnimMul[6];
 	WISP_FILE::CMappedFile m_AnimdataMul;
 	WISP_FILE::CMappedFile m_ArtMul;
 	WISP_FILE::CMappedFile m_HuesMul;
@@ -116,14 +116,20 @@ public:
 	//Чтение сжатых данных с кадрами из УОП аним файла.
 	static char *ReadUOPDataFromFileStream(UOPAnimationData &animData);
 
+	void ReadAnimMulDataFromFileStream(UCHAR_LIST &animData, CTextureAnimationDirection &direction);
+
 	//Разжатие данных с кадрами из УОП аним файла.
 	static bool DecompressUOPFileData(UOPAnimationData &animData, UCHAR_LIST &decLayoutData, char *buf);
 
 	void SendFilesInfo();
 
+	bool IsMulFileOpen(int idx) const;
+
 private:
 	void ReadTask();
 	static bool FileExists(const std::string& filename);
+
+	static bool TryOpenFileStream(std::fstream &fileStream, std::string &filePath);
 
 	bool LoadUOPFile(CUopMappedFile &file, const char *fileName);
 };
