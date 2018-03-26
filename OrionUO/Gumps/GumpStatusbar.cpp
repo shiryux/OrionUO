@@ -61,24 +61,24 @@ void CGumpStatusbar::InitToolTip()
 			L"Change dexterity state", //ID_GSB_BUFF_LOCKER_DEX
 			L"Change intelligence state", //ID_GSB_BUFF_LOCKER_INT
 			L"", //
-			L"Strength", //ID_GSB_TEXT_STR
-			L"Dexterity", //ID_GSB_TEXT_DEX
-			L"Intelligence", //ID_GSB_TEXT_INT
-			L"Sex", //ID_GSB_TEXT_SEX
+			L"Fuerza", //ID_GSB_TEXT_STR
+			L"Destreza", //ID_GSB_TEXT_DEX
+			L"Inteligencia", //ID_GSB_TEXT_INT
+			L"Sexo", //ID_GSB_TEXT_SEX
 			L"Armor", //ID_GSB_TEXT_ARMOR
 			L"Hit Points", //ID_GSB_TEXT_HITS
 			L"Stamina", //ID_GSB_TEXT_STAM
 			L"Mana", //ID_GSB_TEXT_MANA
 			L"Stat Cap", //ID_GSB_TEXT_MAX_STATS
 			L"Luck", //ID_GSB_TEXT_LUCK
-			L"Weight", //ID_GSB_TEXT_WEIGHT
+			L"Peso", //ID_GSB_TEXT_WEIGHT
 			L"Damage", //ID_GSB_TEXT_DAMAGE
 			L"Oro", //ID_GSB_TEXT_GOLD
 			L"Followers", //ID_GSB_TEXT_FOLLOWERS
-			L"Physical Resistance", //ID_GSB_TEXT_RESISTANCE_PHYSICAL
-			L"Fire Resistance", //ID_GSB_TEXT_RESISTANCE_FIRE
-			L"Cold Resistance", //ID_GSB_TEXT_RESISTANCE_COLD
-			L"Poison Resistance", //ID_GSB_TEXT_RESISTANCE_POISON
+			L"Armor", //ID_GSB_TEXT_RESISTANCE_PHYSICAL
+			L"Penalidad de Magery", //ID_GSB_TEXT_RESISTANCE_FIRE
+			L"Penalidad de Stealth", //ID_GSB_TEXT_RESISTANCE_COLD
+			L"Suerte", //ID_GSB_TEXT_RESISTANCE_POISON
 			L"Energy Resistance", //ID_GSB_TEXT_RESISTANCE_ENERGY
 			L"Stat Cap", //ID_GSB_TEXT_TITHING_POINTS
 			L"Hit Chance Increase", //ID_GSB_TEXT_HIT_CHANCE
@@ -463,20 +463,20 @@ void CGumpStatusbar::UpdateContent()
 			//Отрисовка набора характеристик, расположение в зависимости от версии протокола, комментировать не буду...
 			if (g_PacketManager.ClientVersion >= CV_308Z && !g_ConfigManager.OldStyleStatusbar)
 			{
-				p.x = 389;
-				p.y = 152;
+				p.x = 380;
+				p.y = 130;
 
-				//Отрисуем имя игрока
+				/* Отрисуем имя игрока
 				if (g_Player->Name.length())
 				{
 					text = (CGUIText*)Add(new CGUIText(0x0386, useUOPGumps? 90 :58, 50));
 					text->CreateTextureA(1, g_Player->Name, 320, TS_CENTER);
-				}
+				} */
 
 				if (g_PacketManager.ClientVersion >= CV_5020)
 				{
 					//Кнопка вызова гампа бафов
-					Add(new CGUIButton(ID_GSB_BUFF_GUMP, 0x7538, 0x7538, 0x7538, 40, 50));
+					Add(new CGUIButton(ID_GSB_BUFF_GUMP, 0x2A6B, 0x2A6B, 0x2A6B, 365, 64));
 				}
 
 					//Кнопочки для изменения роста/лока статов
@@ -484,7 +484,7 @@ void CGumpStatusbar::UpdateContent()
 					{
 						//Str
 						uchar status = g_Player->LockStr; //Статус (вниз/вверх/замок)
-						xOffset = useUOPGumps ? 28 : 40;
+						xOffset = useUOPGumps ? 28 : 52;
 						ushort gumpID = 0x0984; //Up
 						if (status == 1)
 							gumpID = 0x0986; //Down
@@ -503,7 +503,7 @@ void CGumpStatusbar::UpdateContent()
 						else if (status == 2)
 							gumpID = 0x082C; //Lock
 
-						Add(new CGUIButton(ID_GSB_BUFF_LOCKER_DEX, gumpID, gumpID, gumpID, xOffset, 102));
+						Add(new CGUIButton(ID_GSB_BUFF_LOCKER_DEX, gumpID, gumpID, gumpID, xOffset, 91));
 
 
 
@@ -516,7 +516,7 @@ void CGumpStatusbar::UpdateContent()
 						else if (status == 2)
 							gumpID = 0x082C; //Lock
 
-						Add(new CGUIButton(ID_GSB_BUFF_LOCKER_INT, gumpID, gumpID, gumpID, xOffset, 132));
+						Add(new CGUIButton(ID_GSB_BUFF_LOCKER_INT, gumpID, gumpID, gumpID, xOffset, 106));
 					}
 
 
@@ -528,23 +528,27 @@ void CGumpStatusbar::UpdateContent()
 					Add(new CGUIHitBox(ID_GSB_TEXT_HIT_CHANCE, 58, 154, 59, 24));
 				}
 				else
-					xOffset = 88;
+					xOffset = 98;
 
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 77));
+				// Personal Status
+				// STR - DEX - INT - WEIGHT
+				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 76));
 				text->CreateTextureA(1, std::to_string(g_Player->Str));
 
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 105));
+				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 92));
 				text->CreateTextureA(1, std::to_string(g_Player->Dex));
 
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 133));
+				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 107));
 				text->CreateTextureA(1, std::to_string(g_Player->Int));
 
+				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 124));
+				text->CreateTextureA(1, std::to_string(g_Player->Weight) + "/" + std::to_string(g_Player->MaxWeight), 65, TS_LEFT);
 
-
-				Add(new CGUIHitBox(ID_GSB_TEXT_STR, 58, 70, 59, 24));
-				Add(new CGUIHitBox(ID_GSB_TEXT_DEX, 58, 98, 59, 24));
-				Add(new CGUIHitBox(ID_GSB_TEXT_INT, 58, 126, 59, 24));
-
+				// Tooltips / Hitboxes
+				Add(new CGUIHitBox(ID_GSB_TEXT_STR, 68, 74, 60, 15));
+				Add(new CGUIHitBox(ID_GSB_TEXT_DEX, 68, 90, 60, 15));
+				Add(new CGUIHitBox(ID_GSB_TEXT_INT, 68, 106, 60, 15));
+				Add(new CGUIHitBox(ID_GSB_TEXT_WEIGHT, 52, 123, 115, 15));
 
 
 
@@ -559,36 +563,25 @@ void CGumpStatusbar::UpdateContent()
 					Add(new CGUIHitBox(ID_GSB_TEXT_DEFENCE_CHANCE, 124, 154, 59, 24));
 				}
 				else
-					xOffset = 146;
-				//Hits
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 70));
-				text->CreateTextureA(1, std::to_string(g_Player->Hits), textWidth, TS_CENTER);
+					xOffset = 145;
+				
+				// Hits
+				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 76));
+				text->CreateTextureA(1, std::to_string(g_Player->Hits) + "/" + std::to_string(g_Player->MaxHits), 65, TS_RIGHT);
 
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 83));
-				text->CreateTextureA(1, std::to_string(g_Player->MaxHits), textWidth, TS_CENTER);
+				// Stam
+				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 92));
+				text->CreateTextureA(1, std::to_string(g_Player->Stam) + "/" + std::to_string(g_Player->MaxStam), 65, TS_RIGHT);
 
-				//Stam
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 98));
-				text->CreateTextureA(1, std::to_string(g_Player->Stam), textWidth, TS_CENTER);
-
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 111));
-				text->CreateTextureA(1, std::to_string(g_Player->MaxStam), textWidth, TS_CENTER);
-
-				//Mana
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 126));
-				text->CreateTextureA(1, std::to_string(g_Player->Mana), textWidth, TS_CENTER);
-
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 139));
-				text->CreateTextureA(1, std::to_string(g_Player->MaxMana), textWidth, TS_CENTER);
+				// Mana
+				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 107));
+				text->CreateTextureA(1, std::to_string(g_Player->Mana) + "/" + std::to_string(g_Player->MaxMana), 65, TS_RIGHT);
 
 
-				Add(new CGUILine(xOffset, 138, 185, 138, 0xFF383838));
-				Add(new CGUILine(xOffset, 110, 185, 110, 0xFF383838));
-				Add(new CGUILine(xOffset, 82, 185, 82, 0xFF383838));
 
-				Add(new CGUIHitBox(ID_GSB_TEXT_HITS, 124, 70, 59, 24));
-				Add(new CGUIHitBox(ID_GSB_TEXT_STAM, 124, 98, 59, 24));
-				Add(new CGUIHitBox(ID_GSB_TEXT_MANA, 124, 126, 59, 24));
+				Add(new CGUIHitBox(ID_GSB_TEXT_HITS, 132, 74, 78, 15));
+				Add(new CGUIHitBox(ID_GSB_TEXT_STAM, 132, 90, 78, 15));
+				Add(new CGUIHitBox(ID_GSB_TEXT_MANA, 132, 106, 78, 15));
 
 
 
@@ -601,25 +594,13 @@ void CGumpStatusbar::UpdateContent()
 				}
 				else
 					xOffset = 220;
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 77));
-				text->CreateTextureA(1, std::to_string(g_Player->StatsCap));
-
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 105));
-				text->CreateTextureA(1, std::to_string(g_Player->Luck));
-
-				//Weights
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 126));
-				text->CreateTextureA(1, std::to_string(g_Player->Weight), textWidth, TS_CENTER);
-
-				Add(new CGUILine(useUOPGumps ? 236 : 216, 138, useUOPGumps ? 270 : 250, 138, 0xFF383838));
-
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 139));
-				text->CreateTextureA(1, std::to_string(g_Player->MaxWeight), textWidth, TS_CENTER);
+				// text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 77));
+				// text->CreateTextureA(1, std::to_string(g_Player->StatsCap));
 
 				xOffset = useUOPGumps ? 205 : 188;
-				Add(new CGUIHitBox(ID_GSB_TEXT_TITHING_POINTS, xOffset, 70, 65, 24));
-				Add(new CGUIHitBox(ID_GSB_TEXT_LUCK, xOffset, 98, 65, 24));
-				Add(new CGUIHitBox(ID_GSB_TEXT_WEIGHT, xOffset, 126, 65, 24));
+				// Add(new CGUIHitBox(ID_GSB_TEXT_TITHING_POINTS, xOffset, 70, 65, 24));
+				// Add(new CGUIHitBox(ID_GSB_TEXT_LUCK, xOffset, 98, 65, 24));
+				
 
 
 				if (useUOPGumps)
@@ -635,21 +616,22 @@ void CGumpStatusbar::UpdateContent()
 				}
 				else
 				{
-					xOffset = 280;
-					text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 105));
+					xOffset = 222;
+					text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 124));
 					text->CreateTextureA(1, std::to_string(g_Player->Gold));
-					Add(new CGUIHitBox(ID_GSB_TEXT_GOLD, 260, 98, 69, 24));
+					Add(new CGUIHitBox(ID_GSB_TEXT_GOLD, 187, 122, 115, 15));
 				}
 					
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 77));
+				xOffset = 260;
+				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 76));
 				text->CreateTextureA(1, std::to_string(g_Player->MinDamage) + "-" + std::to_string(g_Player->MaxDamage));
 
-				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 133));
+				text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 92));
 				text->CreateTextureA(1, std::to_string(g_Player->Followers) + "/" + std::to_string(g_Player->MaxFollowers));
 
-				xOffset = useUOPGumps ? 285 : 260;
-				Add(new CGUIHitBox(ID_GSB_TEXT_DAMAGE, xOffset, 70, 69, 24));
-				Add(new CGUIHitBox(ID_GSB_TEXT_FOLLOWERS, xOffset, 126, 69, 24));
+				xOffset = useUOPGumps ? 285 : 225;
+				Add(new CGUIHitBox(ID_GSB_TEXT_DAMAGE, xOffset, 74, 69, 15));
+				Add(new CGUIHitBox(ID_GSB_TEXT_FOLLOWERS, xOffset, 90, 69, 15));
 
 
 				if (useUOPGumps)
@@ -696,29 +678,29 @@ void CGumpStatusbar::UpdateContent()
 				}
 				else
 				{
-					xOffset = 354;
+					xOffset = 340;
 					text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 76));
-				text->CreateTextureA(1, std::to_string(g_Player->Armor));
+					text->CreateTextureA(1, std::to_string(g_Player->Armor));
 
 					text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 92));
-				text->CreateTextureA(1, std::to_string(g_Player->FireResistance));
+					text->CreateTextureA(1, std::to_string(g_Player->FireResistance));
 
-					text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 106));
-				text->CreateTextureA(1, std::to_string(g_Player->ColdResistance));
+					text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 107));
+					text->CreateTextureA(1, std::to_string(g_Player->ColdResistance));
 
-					text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 120));
-				text->CreateTextureA(1, std::to_string(g_Player->PoisonResistance));
+					text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 124));
+					text->CreateTextureA(1, std::to_string(g_Player->Luck));
 
-					text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 134));
-				text->CreateTextureA(1, std::to_string(g_Player->EnergyResistance));
+					//	text = (CGUIText*)Add(new CGUIText(0x0386, xOffset, 134));
+					//	text->CreateTextureA(1, std::to_string(g_Player->EnergyResistance));
 				}
 
-				xOffset = useUOPGumps ? 445 : 334;
-				Add(new CGUIHitBox(ID_GSB_TEXT_RESISTANCE_PHYSICAL, xOffset, 76, 40, 14));
-				Add(new CGUIHitBox(ID_GSB_TEXT_RESISTANCE_FIRE, xOffset, 92, 40, 14));
-				Add(new CGUIHitBox(ID_GSB_TEXT_RESISTANCE_COLD, xOffset, 106, 40, 14));
-				Add(new CGUIHitBox(ID_GSB_TEXT_RESISTANCE_POISON, xOffset, 120, 40, 14));
-				Add(new CGUIHitBox(ID_GSB_TEXT_RESISTANCE_ENERGY, xOffset, 134, 40, 14));
+				xOffset = useUOPGumps ? 445 : 315;
+				Add(new CGUIHitBox(ID_GSB_TEXT_RESISTANCE_PHYSICAL, xOffset, 74, 50, 15));
+				Add(new CGUIHitBox(ID_GSB_TEXT_RESISTANCE_FIRE, xOffset, 90, 50, 15));
+				Add(new CGUIHitBox(ID_GSB_TEXT_RESISTANCE_COLD, xOffset, 106, 50, 15));
+				Add(new CGUIHitBox(ID_GSB_TEXT_RESISTANCE_POISON, xOffset, 123, 50, 15));
+				// Add(new CGUIHitBox(ID_GSB_TEXT_RESISTANCE_ENERGY, xOffset, 134, 40, 14));
 
 
 
@@ -805,7 +787,7 @@ void CGumpStatusbar::UpdateContent()
 			}
 
 			if (!useUOPGumps)
-				Add(new CGUIHitBox(ID_GSB_MINIMIZE, p.x, p.y, 16, 16, true));
+				Add(new CGUIHitBox(ID_GSB_MINIMIZE, p.x, p.y, 21, 26, true));
 			else
 			{
 				p.x = 540;
@@ -875,7 +857,7 @@ void CGumpStatusbar::UpdateContent()
 					Add(new CGUIGumppic(0x0803, 0, 0)); //Гамп статусбара
 
 				//Hits
-				Add(new CGUIGumppic(0x0805, 34, 12));
+				Add(new CGUIGumppic(0x0805, 31, 12));
 
 				int per = CalculatePercents(g_Player->MaxHits, g_Player->Hits, 109);
 
@@ -887,24 +869,24 @@ void CGumpStatusbar::UpdateContent()
 					else if (g_Player->YellowHits())
 						gumpid = 0x0809; //Character status line (yellow)
 
-					Add(new CGUIGumppicTiled(gumpid, 34, 12, per, 0));
+					Add(new CGUIGumppicTiled(gumpid, 31, 12, per, 0));
 				}
 
 				//Mana
-				Add(new CGUIGumppic(0x0805, 34, 25));
+				Add(new CGUIGumppic(0x0805, 31, 25));
 
 				per = CalculatePercents(g_Player->MaxMana, g_Player->Mana, 109);
 
 				if (per > 0)
-					Add(new CGUIGumppicTiled(0x0806, 34, 25, per, 0));
+					Add(new CGUIGumppicTiled(0x0806, 31, 25, per, 0));
 
 				//Stam
-				Add(new CGUIGumppic(0x0805, 34, 38));
+				Add(new CGUIGumppic(0x0805, 31, 38));
 
 				per = CalculatePercents(g_Player->MaxStam, g_Player->Stam, 109);
 
 				if (per > 0)
-					Add(new CGUIGumppicTiled(0x0806, 34, 38, per, 0));
+					Add(new CGUIGumppicTiled(0x0806, 31, 38, per, 0));
 			}
 
 			m_StatusbarUnlocker = (CGUIButton*)Add(new CGUIButton(ID_GSB_BUTTON_REMOVE_FROM_GROUP, 0x082C, 0x082C, 0x082C, 136, 24));
@@ -1016,7 +998,7 @@ void CGumpStatusbar::UpdateContent()
 		{
 			Add(new CGUIShader(&g_ColorizerShader, true));
 
-			ushort color = 0;
+			ushort gumpid = 0x804;
 			ushort hitsColor = 0x0386;
 			ushort textColor = 0x0386;
 			CGameCharacter *obj = g_World->FindWorldCharacter(m_Serial);
@@ -1026,11 +1008,32 @@ void CGumpStatusbar::UpdateContent()
 			if (obj != NULL)
 			{
 				hitsColor = 0;
-				//Вычисляем цвет статусбара
-				color = g_ConfigManager.GetColorByNotoriety(obj->Notoriety);
-
-				if (obj->Notoriety == NT_CRIMINAL || obj->Notoriety == NT_SOMEONE_GRAY)
-					color = 0;
+				
+				// Switch GumpID depending on the target color
+				// Since we made a specific gump for each one.
+				switch (obj->Notoriety)
+				{
+					case NT_FRIENDLY:		// Green
+						gumpid = 0x7F5;
+						break;
+					case NT_MURDERER:		// Red
+						gumpid = 0x7F6;
+						break;
+					case NT_INNOCENT:		// Blue
+						gumpid = 0x7F7;
+						break;
+					case NT_INVULNERABLE:	// Yellow
+						gumpid = 0x7F8;
+						break;
+					case NT_ENEMY:			// Orange
+						gumpid = 0x7F9;
+						break;
+					case NT_CRIMINAL:
+					case NT_SOMEONE_GRAY:
+					default:
+						gumpid = 0x7FA;
+						break;
+				}
 
 				objName = obj->Name;
 				m_Name = objName;
@@ -1042,10 +1045,8 @@ void CGumpStatusbar::UpdateContent()
 				}
 			}
 
-			m_Body = (CGUIGumppic*)Add(new CGUIGumppic(0x0804, 0, 0));
-			m_Body->Color = color;
-
-			m_HitsBody = (CGUIGumppic*)Add(new CGUIGumppic(0x0805, 34, 38));
+			m_Body = (CGUIGumppic*)Add(new CGUIGumppic(gumpid, 0, 0));
+			m_HitsBody = (CGUIGumppic*)Add(new CGUIGumppic(0x0805, 31, 35));
 			m_HitsBody->Color = hitsColor;
 
 			Add(new CGUIShader(&g_ColorizerShader, false));
@@ -1062,12 +1063,13 @@ void CGumpStatusbar::UpdateContent()
 					else if (obj->YellowHits())
 						gumpid = 0x0809; //Character status line (yellow)
 
-					Add(new CGUIGumppicTiled(gumpid, 34, 38, per, 0));
+					Add(new CGUIGumppicTiled(gumpid, 31, 35, per, 0));
 				}
 			}
 
-			Add(new CGUIHitBox(ID_GSB_TEXT_FIELD, 16, 14, 109, 16));
-			m_Entry = (CGUITextEntry*)Add(new CGUITextEntry(ID_GSB_TEXT_FIELD, textColor, textColor, textColor, 16, 14, 150, false, 1, TS_LEFT, UOFONT_FIXED));
+			// Target name
+			Add(new CGUIHitBox(ID_GSB_TEXT_FIELD, 20, 17, 109, 16));
+			m_Entry = (CGUITextEntry*)Add(new CGUITextEntry(ID_GSB_TEXT_FIELD, textColor, textColor, textColor, 20, 17, 150, false, 1, TS_LEFT, UOFONT_FIXED));
 			m_Entry->m_Entry.SetText(objName);
 			m_Entry->CheckOnSerial = true;
 

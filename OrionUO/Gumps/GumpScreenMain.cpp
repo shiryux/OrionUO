@@ -77,19 +77,19 @@ void CGumpScreenMain::UpdateContent()
 	g_MainScreen.m_AutoLogin->SetTextParameters(9, "Auto Login", 0x0386, STP_RIGHT_CENTER);
 
 	CGUIText *text = (CGUIText*)Add(new CGUIText(0x0386, 253, 305));
-	text->CreateTextureA(2, "Log in to Ultima Online");
+	text->CreateTextureA(2, "Bienvenido a UO: Ascension");
 
 	text = (CGUIText*)Add(new CGUIText(0x0386, 183, 345));
-	text->CreateTextureA(2, "Account Name");
+	text->CreateTextureA(2, "Usuario");
 
 	text = (CGUIText*)Add(new CGUIText(0x0386, 183, 385));
 	text->CreateTextureA(2, "Password");
 
 	text = (CGUIText*)Add(new CGUIText(0x034E, 286, 455));
-	text->CreateTextureA(9, string("UO Version " + g_Orion.ClientVersionText + "."));
+	text->CreateTextureA(9, string("UOA Version " + g_Orion.ClientVersionText + "."));
 
 	text = (CGUIText*)Add(new CGUIText(0x034E, 286, 467));
-	text->CreateTextureA(9, string("Orion beta v") + g_App.GetFileVersion());
+	text->CreateTextureA(9, string("Client BETA v") + g_App.GetFileVersion());
 
 	CGUITextEntry *entry = (CGUITextEntry*)Add(new CGUITextEntry(ID_MS_ACCOUNT, 0x034F, 0x03E3, 0x0021, 335, 343, 190, false, 5, TS_LEFT, 0, 32));
 	entry->CheckOnSerial = true;
