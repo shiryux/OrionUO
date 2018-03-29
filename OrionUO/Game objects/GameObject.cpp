@@ -425,25 +425,15 @@ int CGameObject::IsGold(const ushort &graphic)
 ushort CGameObject::GetDrawGraphic(bool &doubleDraw)
 {
 	WISPFUN_DEBUG("c20_f15");
-	int index = IsGold(m_Graphic);
-	ushort result = m_Graphic;
 
-	const ushort graphicAssociateTable[3][3] =
+	if ((m_Graphic >= 0x0EEE) && (m_Graphic <= 0x0EEF))
 	{
-		{0x0EED, 0x0EEE, 0x0EEF},
-		{0x0EEA, 0x0EEB, 0x0EEC},
-		{0x0EF0, 0x0EF1, 0x0EF2}
-	};
-
-	if (index)
-	{
-		int graphicIndex = (int)(m_Count > 1) + (int)(m_Count > 5);
-		result = graphicAssociateTable[index - 1][graphicIndex];
+		doubleDraw = false;
+		return m_Graphic;
 	}
-	else
-		doubleDraw = IsStackable() && (m_Count > 1);
 
-	return result;
+	doubleDraw = IsStackable() && (m_Count > 1);
+	return m_Graphic;
 }
 //----------------------------------------------------------------------------------
 /*!

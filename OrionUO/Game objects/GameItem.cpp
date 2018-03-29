@@ -554,6 +554,51 @@ ushort CGameItem::GetMountAnimation()
 				graphic = 0x042D;
 				break;
 			}
+			case 0x3ECF:
+			{
+				graphic = 0x0160;
+				break;
+			}
+			case 0x3ED0:
+			{
+				graphic = 0x0161;
+				break;
+			}
+			case 0x3ED1:
+			{
+				graphic = 0x0162;
+				break;
+			}
+			case 0x3ED2:
+			{
+				graphic = 0x0163;
+				break;
+			}
+			case 0x3EDC:
+			{
+				graphic = 0x0164;
+				break;
+			}
+			case 0x3EDD:
+			{
+				graphic = 0x0165;
+				break;
+			}
+			case 0x3EDE:
+			{
+				graphic = 0x0166;
+				break;
+			}
+			case 0x3EDF:
+			{
+				graphic = 0x0175;
+				break;
+			}
+			case 0x3EE0:
+			{
+				graphic = 0x0176;
+				break;
+			}
 			default: //lightbrown/horse2
 			{
 				graphic = 0x00C8;

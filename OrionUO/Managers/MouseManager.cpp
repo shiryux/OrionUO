@@ -343,7 +343,11 @@ void CMouseManager::Draw(ushort id)
 			ushort ohGraphic = g_ObjectInHand.GetDrawGraphic(doubleDraw);
 
 			ushort ohColor = g_ObjectInHand.Color;
-			doubleDraw = (!CGameObject::IsGold(g_ObjectInHand.Graphic) && IsStackable(g_ObjectInHand.TiledataPtr->Flags) && g_ObjectInHand.Count > 1);
+
+			if ((g_ObjectInHand.Graphic >= 0x0EEE) && (g_ObjectInHand.Graphic <= 0x0EEF))
+				doubleDraw = false;
+			else
+				doubleDraw = (IsStackable(g_ObjectInHand.TiledataPtr->Flags) && g_ObjectInHand.Count > 1);
 
 			if (ohColor != 0)
 				g_ColorizerShader.Use();
