@@ -915,6 +915,13 @@ void COrion::LoadContaierOffsets()
 		g_ContainerOffset.push_back(CContainerOffset(0x010C, 0x002F, 0x002E, CContainerOffsetRect(0, 20, 168, 115)));
 		g_ContainerOffset.push_back(CContainerOffset(0x010D, 0x002F, 0x002E, CContainerOffsetRect(0, 20, 168, 115)));
 		g_ContainerOffset.push_back(CContainerOffset(0x010E, 0x002F, 0x002E, CContainerOffsetRect(0, 20, 168, 115)));
+		//present boxes
+		g_ContainerOffset.push_back(CContainerOffset(0x0102, 0x004F, 0x0058, CContainerOffsetRect(15, 10, 245, 120)));
+		g_ContainerOffset.push_back(CContainerOffset(0x011B, 0x004F, 0x0058, CContainerOffsetRect(15, 10, 220, 120)));
+		g_ContainerOffset.push_back(CContainerOffset(0x011C, 0x004F, 0x0058, CContainerOffsetRect(10, 10, 220, 145)));
+		g_ContainerOffset.push_back(CContainerOffset(0x011D, 0x004F, 0x0058, CContainerOffsetRect(10, 10, 220, 130)));
+		g_ContainerOffset.push_back(CContainerOffset(0x011E, 0x004F, 0x0058, CContainerOffsetRect(15, 10, 290, 130)));
+		g_ContainerOffset.push_back(CContainerOffset(0x011F, 0x004F, 0x0058, CContainerOffsetRect(15, 10, 220, 120)));
 	}
 	else
 	{
@@ -5474,7 +5481,7 @@ void COrion::CreateUnicodeTextMessage(const TEXT_TYPE &type, const uint &serial,
 				uint container = obj->Container;
 
 				if (container == 0xFFFFFFFF)
-					g_WorldTextRenderer.AddText(td);
+ 					g_WorldTextRenderer.AddText(td);
 				else if (!obj->NPC)
 				{
 					td->X = g_ClickObject.X;
