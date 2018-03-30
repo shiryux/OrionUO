@@ -155,7 +155,7 @@ void CConfigManager::DefaultPage4()
 void CConfigManager::DefaultPage6()
 {
 	WISPFUN_DEBUG("c138_f7");
-	m_EnablePathfind = true;
+	m_EnablePathfind = false;
 	m_HoldTabForCombat = true;
 	m_OffsetInterfaceWindows = true;
 	m_AutoArrange = true;
@@ -166,7 +166,7 @@ void CConfigManager::DefaultPage6()
 	m_ItemPropertiesMode = OPM_FOLLOW_MOUSE;
 	m_ItemPropertiesIcon = false;
 	m_ObjectHandles = false;
-	m_HoldShiftForContextMenus = false;
+	m_HoldShiftForContextMenus = true;
 	m_HoldShiftForEnablePathfind = false;
 	m_CharacterBackpackStyle = CBS_DEFAULT;
 }

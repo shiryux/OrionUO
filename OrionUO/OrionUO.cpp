@@ -1094,13 +1094,12 @@ void COrion::ProcessDelayedClicks()
 			{
 				CGameObject *go = (CGameObject*)g_ClickObject.Object;
 
-				if (!g_TooltipsEnabled || (!go->NPC && go->Locked()))
+				if (g_PopupEnabled && g_ShiftPressed)
+					CPacketRequestPopupMenu(serial).Send();
+				else if (!g_TooltipsEnabled || (!go->NPC && go->Locked()))
 					Click(serial);
 
 				g_ObjectPropertiesManager.OnItemClicked(serial);
-
-				if (g_PopupEnabled && (!g_ConfigManager.HoldShiftForContextMenus || g_ShiftPressed))
-					CPacketRequestPopupMenu(serial).Send();
 			}
 		}
 		else

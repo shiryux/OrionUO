@@ -12,10 +12,10 @@
 //----------------------------------------------------------------------------------
 class COrion
 {
-	SETGET(string, ClientVersionText, "6.0.1.10");
+	SETGET(string, ClientVersionText, "0");
 	SETGET(int, TexturesDataCount, 0);
 	SETGET(string, DefaultLogin, "");
-	SETGET(int, DefaultPort, 2593);
+	SETGET(int, DefaultPort, 0);
 	SETGET(uint, OrionVersionNumeric, 0);
 
 private:
