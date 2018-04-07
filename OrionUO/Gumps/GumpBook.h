@@ -32,9 +32,13 @@ private:
 	CGUIButton *m_PrevPage{ NULL };
 	CGUIButton *m_NextPage{ NULL };
 
+	void SetPagePos(int val, int page);
+
 public:
 	CGumpBook(uint serial, short x, short y, short pageCount, bool writable, bool unicode);
 	virtual ~CGumpBook();
+
+	virtual void PasteClipboardData(wstring &data) override;
 
 	CGUITextEntry *m_EntryAuthor{ NULL };
 	CGUITextEntry *m_EntryTitle{ NULL };
@@ -47,7 +51,7 @@ public:
 
 	void SetPageData(const int &page, const wstring &data);
 
-	void ChangePage(int newPage);
+	void ChangePage(int newPage, bool playSound = true);
 
 	GUMP_BUTTON_EVENT_H;
 

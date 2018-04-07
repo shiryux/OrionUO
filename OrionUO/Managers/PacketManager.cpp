@@ -275,7 +275,7 @@ CPacketInfo CPacketManager::m_Packets[0x100] =
 	/*0xF3*/ RMSGH(ORION_SAVE_PACKET, "Update Item (SA)", 0x18, UpdateItemSA),
 	/*0xF4*/ UMSG(ORION_SAVE_PACKET, PACKET_VARIABLE_SIZE),
 	/*0xF5*/ RMSGH(ORION_IGNORE_PACKET, "Display New Map", 0x15, DisplayMap),
-	/*0xF6*/ RMSG(ORION_SAVE_PACKET, "Boat moving", PACKET_VARIABLE_SIZE),
+	/*0xF6*/ RMSGH(ORION_SAVE_PACKET, "Boat moving", PACKET_VARIABLE_SIZE, BoatMoving),
 	/*0xF7*/ RMSGH(ORION_SAVE_PACKET, "Packets (0xF3) list", PACKET_VARIABLE_SIZE, PacketsList),
 	/*0xF8*/ SMSG(ORION_SAVE_PACKET, "Character Creation (7.0.16.0)", 0x6a),
 	/*0xF9*/ UMSG(ORION_SAVE_PACKET, PACKET_VARIABLE_SIZE),
@@ -5887,7 +5887,7 @@ PACKET_HANDLER(MovePlayer)
 //----------------------------------------------------------------------------------
 PACKET_HANDLER(Pathfinding)
 {
-	WISPFUN_DEBUG("c150_f103");
+	WISPFUN_DEBUG("c150_f104");
 	if (g_World == NULL)
 		return;
 
@@ -5909,6 +5909,40 @@ void CPacketManager::SetCachedGumpCoords(uint id, int x, int y)
 	else
 	{
 		m_GumpsCoordsCache[id] = GumpCoords{ x, y };
+	}
+}
+//----------------------------------------------------------------------------------
+PACKET_HANDLER(BoatMoving)
+{
+	WISPFUN_DEBUG("c150_f105");
+
+	uint boatSerial = ReadUInt32BE();
+
+	CGameObject *boat = g_World->FindWorldObject(boatSerial);
+	if (boat == NULL) return;
+
+	uchar boatSpeed = ReadUInt8();
+	uchar movingDirection = ReadUInt8();
+	uchar facingDirection = ReadUInt8();
+	ushort boatX = ReadUInt16BE();
+	ushort boatY = ReadUInt16BE();
+	ushort boatZ = ReadUInt16BE();
+	ushort boatObjectsCount = ReadUInt16BE();
+
+	g_World->UpdateGameObject(boatSerial, boat->Graphic, 0, boat->Count, boatX, boatY, boatZ, facingDirection, boat->Color, boat->Flags, 0, UGOT_MULTI, 1);
+
+	for (ushort i = 0; i < boatObjectsCount; i++)
+	{
+		uint boatObjectSerial = ReadUInt32BE();
+		ushort boatObjectX = ReadUInt16BE();
+		ushort boatObjectY = ReadUInt16BE();
+		ushort boatObjectZ = ReadUInt16BE();
+
+		CGameObject *boatObject = g_World->FindWorldObject(boatObjectSerial);
+		if (boatObject == NULL) continue;
+
+		uchar direction = boatObject->NPC ? ((CGameCharacter*)boatObject)->Direction : 0;
+		g_World->UpdateGameObject(boatObjectSerial, boatObject->Graphic, 0, 0, boatObjectX, boatObjectY, boatObjectZ, direction, boatObject->Color, boatObject->Flags, 0, UGOT_ITEM, 1);
 	}
 }
 //----------------------------------------------------------------------------------

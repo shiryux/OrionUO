@@ -65,6 +65,12 @@ public:
 	//Удалить символ
 	void Remove(bool left, CGump *gump = NULL);
 
+	//Delete a sequence of symbols
+	void RemoveSequence(int startPos, int length);
+
+	//Получить самый последний символ
+	WPARAM GetLastChar();
+
 	//Сместить позицию каретки в тексте
 	void AddPos(int val, CGump *gump = NULL);
 
@@ -82,6 +88,10 @@ public:
 
 	//Установить Unicode текст
 	void SetText(const wstring &text);
+
+	string GetTextA() const;
+
+	wstring GetTextW() const;
 
 	//Событие нажатия мышкой на текст
 	void OnClick(CGump *gump, uchar font, bool unicode, int x, int y, TEXT_ALIGN_TYPE align = TS_LEFT, ushort flags = 0);

@@ -243,7 +243,10 @@ void CEntryText::Remove(bool left, CGump *gump)
 	}
 
 	//Удаляем указанный символ
-	m_Text.erase(m_Text.begin() + m_Position);
+	if (m_Position < m_Text.length())
+		m_Text.erase(m_Text.begin() + m_Position);
+	else
+		m_Text.erase(m_Text.length() - 1);
 
 	//Регистрируем изменения
 	m_Changed = true;
@@ -280,9 +283,14 @@ void CEntryText::Paste()
 		if (hData != NULL)
 		{
 			wstring text((wchar_t*)GlobalLock(hData));
-
-			IFOR(i, 0, (int)text.length())
-				Insert(text[i]);
+			CGump *gump = g_GumpManager.GetTextEntryOwner();
+			if (gump != NULL && gump->GumpType == GT_BOOK)
+				gump->PasteClipboardData(text);
+			else
+			{
+				IFOR(i, 0, (int)text.length())
+					Insert(text[i]);
+			}
 
 			GlobalUnlock(hData);
 		}
@@ -703,5 +711,26 @@ void CEntryText::DrawMaskW(uchar font, ushort color, int x, int y, TEXT_ALIGN_TY
 		//Отрисуем каретку
 		g_FontManager.DrawW(font, L"_", color, x + m_DrawOffset, y, 30, 0, TS_LEFT, flags);
 	}
+}
+//----------------------------------------------------------------------------------
+WPARAM CEntryText::GetLastChar()
+{
+	if (m_Text.length() == 0) return 0;
+	return m_Text[m_Text.length() - 1];
+}
+//----------------------------------------------------------------------------------
+void CEntryText::RemoveSequence(int startPos, int length)
+{
+	m_Text.erase(startPos, length);
+}
+//----------------------------------------------------------------------------------
+string CEntryText::GetTextA() const
+{
+	return m_CText;
+}
+//----------------------------------------------------------------------------------
+wstring CEntryText::GetTextW() const
+{
+	return m_Text;
 }
 //----------------------------------------------------------------------------------
