@@ -418,6 +418,18 @@ void CGumpPaperdoll::UpdateContent()
 		bodyGumppic = (CGUIGumppic*)m_DataBox->Add(new CGUIGumppic(0xC72B, 8, 19)); //GM robe gump
 		bodyGumppic->Color = color;
 	}
+	else if (obj->Graphic == 0x02EE)
+	{
+		bodyGumppic = (CGUIGumppic*)m_DataBox->Add(new CGUIGumppic(0x0079, 8, 19)); // Tribal Skin
+		bodyGumppic->PartialHue = true;
+		bodyGumppic->Color = color;
+	}
+	else if (obj->Graphic == 0x02EF)
+	{
+		bodyGumppic = (CGUIGumppic*)m_DataBox->Add(new CGUIGumppic(0x0078, 8, 19)); // Female Tribal Skin
+		bodyGumppic->PartialHue = true;
+		bodyGumppic->Color = color;
+	}
 	else //if (obj->Graphic == 0x0190 || obj->Graphic == 0x0192)
 	{
 		bodyGumppic = (CGUIGumppic*)m_DataBox->Add(new CGUIGumppic(0x000C, 8, 19)); //Male gump

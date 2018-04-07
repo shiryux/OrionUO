@@ -4823,17 +4823,7 @@ PACKET_HANDLER(DisplayMap)
 
 	CGumpMap *gump = new CGumpMap(serial, gumpid, startX, startY, endX, endY, width, height);
 
-	if (*m_Start == 0xF5 || m_ClientVersion >= CV_308Z) //308z или выше?
-	{
-		ushort facet = 0;
-
-		if (*m_Start == 0xF5)
-			facet = ReadUInt16BE();
-
-		g_MultiMap.LoadFacet(gump, gump->m_Texture, facet);
-	}
-	else
-		g_MultiMap.LoadMap(gump, gump->m_Texture);
+	g_MultiMap.LoadMap(gump, gump->m_Texture);
 
 	//TPRINT("GumpX=%d GumpY=%d\n", startX, startY);
 	//TPRINT("GumpTX=%d GumpTY=%d\n", endX, endY);
